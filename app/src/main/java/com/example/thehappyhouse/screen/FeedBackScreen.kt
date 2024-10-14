@@ -1,10 +1,11 @@
-package com.example.testlogin.screen
+package com.example.thehappyhouse.screen
 
 import Navbar
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun LocationScreen(navController: NavController){
+fun FeedBackScreen(navController: NavController){
     Navbar(navController)
 }
+

@@ -1,5 +1,6 @@
 package com.example.thehappyhouse.controller
 
+    import android.graphics.Point
     import android.os.Build
     import androidx.annotation.RequiresApi
     import androidx.compose.runtime.Composable
@@ -12,14 +13,22 @@ package com.example.thehappyhouse.controller
     import com.example.testlogin.screen.MenuScreen
     import com.example.testlogin.screen.OrderScreen
     import com.example.testlogin.screen.WelComeScreen
+    import com.example.thehappyhouse.screen.BookScreen
+    import com.example.thehappyhouse.screen.FeedBackScreen
+    import com.example.thehappyhouse.screen.PointScreen
+    import com.example.thehappyhouse.screen.ViewRoomScreen
 
 enum class ROUTE_NAME {
     welcome,
     login,
     home,
     location,
-    order,
     menu,
+    viewroom,
+    point,
+    book,
+    feedback
+
 }
 
 
@@ -32,9 +41,13 @@ fun AppNavHost(
         composable(ROUTE_NAME.welcome.name) { WelComeScreen(navController) }
         composable(ROUTE_NAME.login.name) { LoginScreen(navController) }
         composable(ROUTE_NAME.home.name) { HomeScreen(navController) }
-        composable(ROUTE_NAME.order.name) { OrderScreen(navController) }
-        composable(ROUTE_NAME.order.name) { LocationScreen(navController) }
+        composable(ROUTE_NAME.location.name) { LocationScreen(navController) }
         composable(ROUTE_NAME.menu.name) { MenuScreen(navController) }
+        composable(ROUTE_NAME.viewroom.name) { ViewRoomScreen(navController) }
+        composable(ROUTE_NAME.point.name) { PointScreen(navController) }
+        composable(ROUTE_NAME.book.name) { BookScreen(navController) }
+        composable(ROUTE_NAME.feedback.name) { FeedBackScreen(navController) }
+
 
 
     }

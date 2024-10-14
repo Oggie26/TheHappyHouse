@@ -1,33 +1,48 @@
 package com.example.thehappyhouse.component
 import android.R
+import androidx.compose.foundation.ExperimentalFoundationApi
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ParagraphStyle
@@ -41,6 +56,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.thehappyhouse.controller.ROUTE_NAME
+import kotlinx.coroutines.delay
 
 @Composable
 fun TextComponent(value: String) {
@@ -207,6 +225,15 @@ fun LoginButton(modifier: Modifier = Modifier, onLoginClick: () -> Unit) {
 }
 
 @Composable
+fun NavButton(navController: NavController, route: String, icon: @Composable () -> Unit) {
+    FloatingActionButton(
+        onClick = { navController.navigate(route) },
+    ) {
+        icon();
+    }
+}
+
+@Composable
 fun ImageWithPadding(painter: Painter, description: String) {
     Column(
         modifier = Modifier
@@ -228,3 +255,54 @@ fun ImageWithPadding(painter: Painter, description: String) {
         )
     }
 }
+
+@Composable
+fun AutoScrollingCarousel() {
+    val listState = rememberLazyListState()
+    val images = listOf(
+        R.drawable.ic_menu_report_image,
+        R.drawable.ic_menu_report_image,
+        R.drawable.ic_menu_report_image
+    )
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(3000)
+            val itemCount = images.size
+            val currentIndex = listState.firstVisibleItemIndex
+
+            val nextIndex = if (currentIndex < itemCount - 1) {
+                currentIndex + 1
+            } else {
+                0
+            }
+            listState.animateScrollToItem(nextIndex)
+        }
+    }
+
+    LazyRow(
+        state = listState,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp)
+    ) {
+        items(images) { imageRes ->
+            Box(
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(200.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = imageRes),
+                    contentDescription = "Auto-scrolling Image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    }
+}
+
+
