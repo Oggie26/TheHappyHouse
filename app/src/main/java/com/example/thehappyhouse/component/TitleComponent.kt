@@ -24,7 +24,7 @@ fun SmallTitle(icon: ImageVector, name: String) {
             modifier = Modifier.padding(end = 8.dp)
         )
         Text(
-            text = name, // Use the passed name for the text
+            text = name,
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold
         )

@@ -83,7 +83,7 @@ fun HomeScreen(navController: NavController) {
                     Text(text = "The Happy House", fontSize = 28.sp)
                     Icon(
                         Icons.Filled.Notifications, contentDescription = null,
-                        Modifier.size(40.dp),
+                        Modifier.size(25.dp),
                     )
                 }
             }

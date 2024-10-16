@@ -66,6 +66,9 @@ dependencies {
     implementation (libs.converter.gson)
     implementation(libs.engage.core)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.storage)
+    implementation(libs.androidx.storage)
+    implementation(libs.androidx.benchmark.macro)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -74,6 +77,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
+    implementation (libs.androidx.material.icons.core)
+    implementation (libs.androidx.material.icons.extended)
 
 }
