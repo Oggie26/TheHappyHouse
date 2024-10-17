@@ -1,5 +1,6 @@
 package com.example.thehappyhouse.component
 
+import android.view.MotionEvent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,9 +17,11 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -101,39 +104,16 @@ fun BoxHomeComponent(navController: NavController, content: @Composable () -> Un
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SmallBox(navController: NavController, icon: ImageVector, name: String, onClick: () -> Unit){
-
+fun SmallBox(navController: NavController, icon: ImageVector, name: String, route: String) {
     OutlinedCard(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
         border = BorderStroke(1.dp, Color.Black),
         modifier = Modifier.size(width = 190.dp, height = 100.dp)
             .padding(10.dp)
-           ,
-        shape = RoundedCornerShape(8.dp)
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Row(
-                modifier = Modifier.fillMaxSize().clickable(onClick = onClick),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                SmallTitle(icon , name)
-            }
-        }
-    }
-}
-
-@Composable
-fun LargeBox(navController: NavController, icon: ImageVector, name: String, function: () -> Unit){
-    OutlinedCard(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
-        border = BorderStroke(1.dp, Color.Black),
-        modifier = Modifier.size(width = 400.dp, height = 120.dp).padding(10.dp),
+            .clickable {
+                navController.navigate(route)
+            },
         shape = RoundedCornerShape(8.dp)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -142,9 +122,40 @@ fun LargeBox(navController: NavController, icon: ImageVector, name: String, func
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                SmallTitle(icon , name)
+                SmallTitle(icon, name)
             }
         }
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun LargeBox(navController: NavController, icon: ImageVector, name: String, route: String) {
+    OutlinedCard(
+        border = BorderStroke(1.5.dp, Color.Black),
+        modifier = Modifier.size(width = 420.dp, height = 120.dp)
+            .padding(10.dp)
+            .clickable {
+                navController.navigate(route)
+            }
+            .pointerInteropFilter {
+                when (it.action) {
+                    MotionEvent.ACTION_UP -> {
+                        navController.navigate(route)
+                    }
+                }
+                true
+            },
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                SmallTitle(icon, name)
+            }
+        }
+    }
+}

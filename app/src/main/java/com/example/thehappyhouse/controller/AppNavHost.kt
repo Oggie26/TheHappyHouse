@@ -12,10 +12,12 @@ package com.example.thehappyhouse.controller
     import com.example.testlogin.screen.LoginScreen
     import com.example.testlogin.screen.WelComeScreen
     import com.example.thehappyhouse.screen.BookScreen
+    import com.example.thehappyhouse.screen.FavouriteHomeScreen
     import com.example.thehappyhouse.screen.FavouriteScreen
     import com.example.thehappyhouse.screen.FeedBackScreen
     import com.example.thehappyhouse.screen.HistoryBookingScreen
     import com.example.thehappyhouse.screen.PointScreen
+    import com.example.thehappyhouse.screen.RoomDetail1Screen
     import com.example.thehappyhouse.screen.ViewRoomScreen
 
 enum class ROUTE_NAME {
@@ -30,7 +32,9 @@ enum class ROUTE_NAME {
     feedback,
     history,
     rule,
-    favourite
+    favourite,
+    room_detail1,
+    favourite_home
 
 }
 
@@ -53,8 +57,8 @@ fun AppNavHost(
         composable(ROUTE_NAME.history.name) { HistoryBookingScreen(navController) }
         composable(ROUTE_NAME.rule.name) { HistoryBookingScreen(navController) }
         composable(ROUTE_NAME.favourite.name) { FavouriteScreen(navController) }
-
-
+        composable(ROUTE_NAME.room_detail1.name) { RoomDetail1Screen(navController) }
+        composable(ROUTE_NAME.favourite.name) { FavouriteHomeScreen(navController) }
 
 
 

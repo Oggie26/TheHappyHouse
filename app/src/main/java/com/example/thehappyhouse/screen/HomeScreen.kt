@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.thehappyhouse.component.BoxHomeComponent
-import com.example.thehappyhouse.component.ProductListScreen
 import com.example.thehappyhouse.component.SmallTitle
 
 @Composable
